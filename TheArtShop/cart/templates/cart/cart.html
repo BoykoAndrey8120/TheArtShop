@@ -1,0 +1,9 @@
+{% extends "site_content/base.html" %}
+
+{% block content %}
+  <h2>Карзина</h2>
+<form method="post" action="{% url 'cart:checkout' %}">
+    {% csrf_token %}
+    <input type="submit" value="Оформить заказ">
+</form>
+{% endblock %}

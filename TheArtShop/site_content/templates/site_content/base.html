@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин Творческих Товаров</title>
+    <style>
+        @font-face {
+    font-family: "beermoney";
+    src: url('{% static 'fonts/beermoney.ttf' %}') format('truetype');
+      /* url("/fonts/OpenSans-Regular-webfont.woff") format("woff"); */
+  }
+/*@font-face {*/
+/*    font-family: "znikomit";*/
+/*    src: url('{% static 'fonts/ZnikomitNo25.otf' %}') format('opentype');*/
+/*}*/
+    </style>
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+
+</head>
+<body>
+    <header class="header">
+        <h1 class="logo">
+            <img src="{% static 'image/Art-Shop-logo.png' %}" alt="Логотип" class="logo-image">
+            <a href="{% url 'home' %}">Магазин Творческих Товаров</a>
+        </h1>
+        <nav class="menu">
+
+<!--                {% block menu %}-->
+
+<!--                {% endblock %}-->
+            <ul class="menu-list">
+                <li class="menu-item"><a href="#painting" class="menu-link">О нас</a></li>
+                <li class="menu-item"><a href="#painting" class="menu-link">Акции</a></li>
+                <li class="menu-item"><a href="#sculpture" class="menu-link">Контакты</a></li>
+                {% if user.is_authenticated %}
+                <li class="menu-item"><a href="{% url 'logout' %}" class="menu-link">Выйти</a></li>
+                {% else %}
+                <li class="menu-item"><a href="{% url 'login' %}" class="menu-link">Войти</a></li>
+                {% endif %}
+                <li class="menu-item">
+                   {% if user.is_authenticated %}
+                <a href="{% url 'cart:cart' %}" class="menu-link"><img src="{% static 'image/free-icon-shop-cart-5821012.png' %}" alt="Корзина" class="bag-image", width="30px", height="30px"> Корзина</a>
+                    {% else %}
+                <a href="{% url 'login' %}" class="menu-link"><img src="{% static 'image/free-icon-shop-cart-5821012.png' %}" alt="Корзина" class="bag-image", width="30px", height="30px"> Корзина</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% if is_homepage %}
+        <section class="intro">
+            <h2>Добро пожаловать в магазин творческих инструментов</h2>
+            <p>
+                Наш магазин открывает двери в мир бесконечных возможностей для художников и творческих душ. Мы предлагаем широкий выбор товаров и инструментов, которые помогут вам воплотить ваши идеи и вдохновение в реальность.
+            </p>
+            <p>
+                У нас вы найдете все необходимое для творчества: краски, холсты, кисти, мольберты, рисовальные планшеты и многое другое. Независимо от вашего уровня опыта - от начинающего художника до профессионала - у нас есть инструменты, которые подходят именно вам.
+            </p>
+            <p>
+                Мы гордимся тем, что помогаем вам раскроить свой потенциал и творческую энергию. Добро пожаловать в магазин, где искусство оживает!
+            </p>
+        </section>
+        {% endif %}
+<!--        <section id="painting" class="category">-->
+<!--            <h2>Живопись</h2>-->
+<!--            <div class="product">-->
+<!--                <img class="product-image" src="./img/pexels-ylanite-koppens-697673.jpg" alt="Картина 1">-->
+<!--                <h3>Картина 1</h3>-->
+<!--                <p>Описание картины 1. Прекрасное произведение искусства, которое подарит вам радость и вдохновение.</p>-->
+<!--                <p>Цена: $100</p>-->
+<!--                <button>Добавить в корзину</button>-->
+<!--            </div>-->
+<!--            <div class="product">-->
+<!--                <img class="product-image" src="./img/pexels-yan-krukau-8612995.jpg" alt="Картина 2">-->
+<!--                <h3>Картина 2</h3>-->
+<!--                <p>Описание картины 2. Уникальное произведение искусства, которое украсит ваш дом.</p>-->
+<!--                <p>Цена: $150</p>-->
+<!--                <button>Добавить в корзину</button>-->
+<!--            </div>-->
+<!--        </section>-->
+
+<!--        <section id="sculpture" class="category">-->
+<!--            <h2>Скульптура</h2>-->
+<!--            <div class="product">-->
+<!--                <img class="product-image" src="./img/pexels-cottonbro-studio-3778550.jpg" alt="Скульптура 1">-->
+<!--                <h3>Скульптура 1</h3>-->
+<!--                <p>Описание скульптуры 1. Удивительное произведение, которое придаст вашему пространству характер.</p>-->
+<!--                <p>Цена: $200</p>-->
+<!--                <button>Добавить в корзину</button>-->
+<!--            </div>-->
+<!--            <div class="product">-->
+<!--                <img class="product-image" src="./img/pexels-anna-savelieva-11942724.jpg" alt="Скульптура 2">-->
+<!--                <h3>Скульптура 2</h3>-->
+<!--                <p>Описание скульптуры 2. Оригинальное искусство, которое запомнится навсегда.</p>-->
+<!--                <p>Цена: $250</p>-->
+<!--                <button>Добавить в корзину</button>-->
+<!--            </div>-->
+<!--        </section>-->
+
+<!--        <section id="crafts" class="category">-->
+<!--            <h2>Рукоделие</h2>-->
+<!--            <div class="product">-->
+<!--                <img class="product-image" src="./img/pexels-kim-van-vuuren-1590159.jpg" alt="Изделие из рукоделия 1">-->
+<!--                <h3>Изделие из рукоделия 1</h3>-->
+<!--                <p>Описание изделия из рукоделия 1. Уникальное изделие, сделанное с любовью.</p>-->
+<!--                <p>Цена: $50</p>-->
+<!--                <button>Добавить в корзину</button>-->
+<!--            </div>-->
+<!--            <div class="product">-->
+<!--                <img class="product-image" src="./img/pexels-kim-van-vuuren-1590159.jpg" alt="Изделие из рукоделия 2">-->
+<!--                <h3>Изделие из рукоделия 2</h3>-->
+<!--                <p>Описание изделия из рукоделия 2. Прекрасный подарок для близких.</p>-->
+<!--                <p>Цена: $60</p>-->
+<!--                <button>Добавить в корзину</button>-->
+<!--            </div>-->
+<!--        </section>-->
+
+<!--        <section id="drawing" class="category">-->
+<!--            <h2>Рисование</h2>-->
+<!--            <div class="product">-->
+<!--                <img class="product-image" src="./img/pexels-naomi-bokhout-627901.jpg" alt="Набор для рисования 1">-->
+<!--                <h3>Набор для рисования 1</h3>-->
+<!--                <p>Описание набора для рисования 1. Все, что нужно для творчества на холсте.</p>-->
+<!--                <p>Цена: $30</p>-->
+<!--                <button>Добавить в корзину</button>-->
+<!--            </div>-->
+<!--            <div class="product">-->
+<!--                <img class="product-image" src="./img/pexels-ge-yonk-1129648.jpg" alt="Набор для рисования 2">-->
+<!--                <h3>Набор для рисования 2</h3>-->
+<!--                <p>Описание набора для рисования 2. Отличный выбор для художников-энтузиастов.</p>-->
+<!--                <p>Цена: $40</p>-->
+<!--                <button>Добавить в корзину</button>-->
+<!--            </div>-->
+<!--        </section>-->
+                {% block content %}
+                {% endblock %}
+    </main>
+
+    <footer class="footer">
+<!--        {% include 'site_content/footer.html' %}-->
+        <p class="footer-text">&copy; 2023 Магазин Творческих Товаров</p>
+    </footer>
+</body>
+</html>

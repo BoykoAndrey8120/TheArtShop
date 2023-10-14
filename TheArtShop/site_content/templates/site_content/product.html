@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends 'site_content/base.html' %}
+{% block content %}
+    <h4>{{ product.title_product }}</h4>
+    <img class="product-image" src="{% if product.image_product %}{{ product.image_product.url }}{% else %}/static/image/Art-Shop-logo.png{% endif %}" width="150px" height="130px">
+    <p>{{ product.price_product }}</p>
+    <p>Бренд: {{ product.brand_product }}</p>
+    <p>{{ product.description_product }}</p>
+
+    <button id="buyButton">Купить</button>
+
+<script>
+    document.getElementById('buyButton').addEventListener('click', function() {
+        // Отправляем AJAX-запрос на сервер для создания заказа
+        var xhr = new XMLHttpRequest();
+        var product_id = {{ product.id }};
+        var url = '{% url "cart:add_to_cart" product_id=1 %}';
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.onload = function() {
+            // После успешного ответа сервера, переходим в корзину
+            if (xhr.status >= 200 && xhr.status < 300) {
+                window.location.href = '{% url "cart:cart" %}';
+            }
+        };
+        xhr.send(JSON.stringify({ product_id: product_id }));
+    });
+</script>
+
+{% endblock %}

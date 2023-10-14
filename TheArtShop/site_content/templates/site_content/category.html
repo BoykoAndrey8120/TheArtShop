@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+{% extends 'site_content/base.html' %}
+    <title>category.title_category</title>
+{% block content %}
+<h3>{{category.title_category}}</h3>
+<img class="category-image" src="{% if category.image_category %}{{ category.image_category.url }}{% else %}/static/image/Art-Shop-logo.png{% endif %}", width="150px", height="130px">
+<p>{{ category.description_category }}</p>
+<a href="./products">перейти</a>
+{% endblock %}
+

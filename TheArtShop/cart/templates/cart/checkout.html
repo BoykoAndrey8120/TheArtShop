@@ -1,0 +1,42 @@
+{% extends "site_content/base.html" %}
+
+{% block content %}
+  <h2>Оформление заказа</h2>
+  {% if cart_items %}
+    <table>
+      <thead>
+        <tr>
+          <th>Товар</th>
+          <th>Количество</th>
+          <th>Цена за единицу</th>
+          <th>Общая стоимость</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+          <tr>
+            <td>{{ item.order.title_product }}</td>
+            <td>{{ item.order.quantity }}</td>
+            <td>{{ item.order.price_product }}</td>
+<!--            <td>${{ item.total_price }}</td>-->
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <p>Общая стоимость заказа: ${{ total_order_price }}</p>
+
+    <!-- Форма для ввода данных доставки и подтверждения заказа -->
+    <form method="post" action="{% url 'confirm_order' %}">
+      {% csrf_token %}
+      <!-- Вставьте поля формы для имени, адреса, контактной информации и т. д. -->
+      <input type="submit" value="Подтвердить заказ">
+    </form>
+  {% else %}
+    <p>Ваша корзина пуста.</p>
+  {% endif %}
+{% endblock %}
+
+
+
+

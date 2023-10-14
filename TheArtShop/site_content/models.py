@@ -6,7 +6,11 @@ from django.db import models
 class Category(models.Model):
     title_category = models.CharField(max_length=255)
     slug_category = models.SlugField(max_length=100, db_index=True, unique=True)
-    image_category = models.ImageField(upload_to='image/categories/', blank=True)
+    image_category = models.ImageField(upload_to='image/categories/', default='site_content/image/default.png', blank=True)
+    description_category = models.TextField(default='')
+
+    def __str__(self):
+        return self.title_category
 
     class Meta:
         ordering =('title_category',)
@@ -14,10 +18,15 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 
+
+
 class Brand(models.Model):
     title_brand = models.CharField(max_length=255)
     slug_brand = models.SlugField(max_length=100, db_index=True, unique=True)
     image_brand = models.ImageField(upload_to='image/brands/', blank=True)
+
+    def __str__(self):
+        return self.title_brand
 
 
 class Product(models.Model):
@@ -37,6 +46,8 @@ class Product(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
         index_together = (('id', 'slug_product'), )
+
+
 
     def __str__(self):
         return self.title_product

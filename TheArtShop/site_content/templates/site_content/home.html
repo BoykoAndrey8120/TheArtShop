@@ -1,0 +1,17 @@
+{% extends 'site_content/base.html' %}
+{% block content %}
+<h2>Категории товаров</h2>
+<section id="painting" class="category">
+    <div class="grid-container"> <!-- Применяем класс grid-container здесь -->
+        {% for item in list_category %}
+        <div class="category-list">
+            <a class="category-action-checkbox-column" href="{% url 'Category-detail' slug_category=item.slug_category %}">
+                <p>{{ item.title_category }}</p>
+                <img class="category-image" src="{% if item.image_category %}{{ item.image_category.url }}{% else %}/static/image/Art-Shop-logo.png{% endif %}" width="150px" height="130px">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
