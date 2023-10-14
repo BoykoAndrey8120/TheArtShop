@@ -39,6 +39,11 @@ class ProductsViews(ListView):
     template_name = 'site_content/products.html'
     context_object_name = 'list_products'
 
+    def get_queryset(self):
+        category_slug = self.kwargs['slug_category']
+        category = Category.objects.get(slug_category=category_slug)
+        return Product.objects.filter(category_product=category, available=True)
+
 class CustomLoginView(LoginView):
     template_name = 'site_content/login.html'
     success_url = 'home'
@@ -47,11 +52,6 @@ class CustomLoginView(LoginView):
 class CustomLogoutView(LogoutView):
     template_name = 'site_content/logout.html'
     # next_page = reverse_lazy('home')
-
-    def get_queryset(self):
-        category_slug = self.kwargs['slug_category']
-        category = Category.objects.get(slug_category=category_slug)
-        return Product.objects.filter(category_product=category, available=True)
 
 
 def category_with_products_list(request, slug_category, slug_product, template_name):

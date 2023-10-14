@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% extends 'site_content/base-new.html' %}
+<!--    <title>category.title_category</title>-->
+{% block content %}
+
+<h3> Товары </h3>
+<div class="grid-container"> <!-- Применяем класс grid-container здесь -->
+    {% for product in list_products %}
+    <div class="products-list">
+        <a href="{% url 'product_detail' slug_category=product.category_product.slug_category slug_product=product.slug_product pk=product.id %}">
+            <p>{{ product.title_product }}</p>
+            <img class="product-image" src="{% if product.image_product %}{{ product.image_product.url }}{% else %}/static/image/Art-Shop-logo.png{% endif %}" width="150px" height="130px">
+            <p>{{ product.price_product }}</p>
+            <p>{{ product.brand_product }}</p>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<br>
+
+{% if page_obj.has_previous %}
+<a href="?page=1">&laquo; first</a>
+<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+{% endif %}
+
+<span class="current-page">
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+</span>
+
+{% if page_obj.has_next %}
+<a href="?page={{ page_obj.next_page_number }}">next</a>
+<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+{% endif %}
+
+
+
+{% endblock %}

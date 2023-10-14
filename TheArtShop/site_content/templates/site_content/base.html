@@ -1,0 +1,202 @@
+<!--<!DOCTYPE html>-->
+<!--{% load static %}-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Art-Shop</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<header>-->
+
+<!--    <div class="heder-menu">-->
+<!--        <div class="first-line-menu">-->
+<!--            <div class="menu-list">-->
+<!--                <img class="menu-image", src="{% static 'image/default.png' %}", width="15%">-->
+<!--                <div class="menu-text">-->
+<!--                    <h3 class="menu-title">Menu</h3>-->
+<!--                    <li class="menu-el"><a href="/">about as</a></li>-->
+<!--                    <li class="menu-el"><a href="/">actions</a></li>-->
+<!--                    <li class="menu-el"><a href="/">payment</a></li>-->
+<!--                    <li class="menu-el"><a href="/">delivery</a></li>-->
+<!--                    <li class="menu-el"><a href="/">payment</a></li>-->
+<!--                    <li class="menu-el"><a href="/">contacts</a></li>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</header>-->
+
+<!--<h1> Art Shop</h1>-->
+<!--{% for item in list_category %}-->
+<!--<a class="action-checkbox-column", href="/">-->
+<!--    <p>{{ item.title_category }}</p>-->
+<!--    <img src="{{ item.image_category.url }}">-->
+<!--</a>-->
+<!--{% endfor %}-->
+<!--{% for item in list_product %}-->
+<!--<a class="action-checkbox-column", href="/">-->
+<!--    <p>{{ item.title_product }}</p>-->
+<!--    <img src="{{ item.image_product.url }}">-->
+<!--</a>-->
+<!--{% endfor %}-->
+<!--<img src="/static/image/default.png">-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!--<style>-->
+<!--    h1 {-->
+<!--        align-items: center;-->
+<!--    }-->
+<!--    .menu-list {-->
+<!--        display: flex;-->
+<!--        align-items: center;-->
+<!--        justify-content: center;-->
+<!--        padding: 2px;-->
+<!--        margin: 0 1rem;-->
+<!--    }-->
+<!--    .menu-image {-->
+<!--        align-items: normal;-->
+<!--        padding-right: 90px;-->
+<!--    }-->
+<!--    .menu-title {-->
+<!--         align-items: normal;-->
+<!--        padding-right: 30px;-->
+<!--    }-->
+<!--    .menu-text {-->
+<!--        display: flex;-->
+<!--        align-items: center;-->
+<!--        justify-content: center;-->
+<!--    }-->
+<!--    .menu-el {-->
+<!--        padding: 30px;-->
+<!--        *margin: 0 1rem;-->
+<!--    }-->
+<!--    .li {-->
+<!--        -->
+<!--    }-->
+
+<!--</style>-->
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website</title>
+    <style>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        /* Стили для меню и логотипа */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            /*align-items: center;*/
+            align-items: flex-start;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar li {
+            margin: 0 40px;
+        }
+
+        .logo img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        /* Стили для второго уровня (подменю) */
+        .submenu {
+            display: none;
+            background-color: #333;
+            padding: 10px;
+            margin: 10px;
+            button: 0;
+        }
+
+        .navbar li:hover .submenu {
+            display: block;
+            position: absolute;
+            /*top: 100%;*/
+            bottom: 10px;
+            /*left: 0;*/
+            width: 200px; /* Ширина подменю */
+            padding: 30px;
+        }
+
+        .submenu ul {
+            list-style: none;
+            padding: 40px;
+            margin: 10px;
+        }
+
+        .submenu li {
+            margin: 5px;
+            padding: 30px;
+        }
+
+        /*стили для контента*/
+        .category-action-checkbox-column {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /*align-items: flex-start;*/
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+        .category-image {
+            align-items: center;
+            background-color: #333;
+        }
+        .product-action-checkbox-column {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /*align-items: flex-start;*/
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Верхнее меню с логотипом -->
+        <div class="navbar">
+            <div class="logo">
+               <img class="menu-image", src="{% static 'image/Art-Shop-logo.png' %}", width="95%">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Услуги</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+                <!-- Подменю для Услуг -->
+                <ul class="submenu">
+                    <li><a href="#">Категории</a></li>
+                    <li><a href="#">Бренды</a></li>
+                    <li><a href="#">Товары</a></li>
+                    <li><a href="#">Корзина</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    {% block content %}
+    {% endblock %}
+{% include 'site_content/footer.html' %}
+</body>
+</html>
