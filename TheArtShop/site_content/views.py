@@ -44,21 +44,20 @@ class ProductsViews(ListView):
         category = Category.objects.get(slug_category=category_slug)
         return Product.objects.filter(category_product=category, available=True)
 
-class CustomLoginView(LoginView):
-    template_name = 'site_content/login.html'
-    success_url = 'home'
-
-
-class CustomLogoutView(LogoutView):
-    template_name = 'site_content/logout.html'
-    # next_page = reverse_lazy('home')
-
-
-def category_with_products_list(request, slug_category, slug_product, template_name):
-    # Ваш код для обработки запроса
-    category = Category.objects.get(slug_category=slug_category)
-    products = Product.objects.filter(category_product=category)
-    return render(request, 'site_content/category_products.html', {'category': category, 'products': products})
+# class CustomLoginView(LoginView):
+#     template_name = 'site_content/login.html'
+#     success_url = 'home'
+#
+#
+# class CustomLogoutView(LogoutView):
+#     template_name = 'site_content/logout.html'
+#
+#
+# def category_with_products_list(request, slug_category, slug_product, template_name):
+#     # Ваш код для обработки запроса
+#     category = Category.objects.get(slug_category=slug_category)
+#     products = Product.objects.filter(category_product=category)
+#     return render(request, 'site_content/category_products.html', {'category': category, 'products': products})
 
 
 class ProductView(DetailView):
@@ -67,16 +66,16 @@ class ProductView(DetailView):
     context_object_name = 'product'
 
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)  # Автоматически войдите в систему после регистрации
-            return redirect('home')  # Замените 'home' на URL-маршрут вашей домашней страницы
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
+# def register(request):
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)  # Автоматически войдите в систему после регистрации
+#             return redirect('home')  # Замените 'home' на URL-маршрут вашей домашней страницы
+#     else:
+#         form = UserCreationForm()
+#     return render(request, 'registration/register.html', {'form': form})
 
 
 
