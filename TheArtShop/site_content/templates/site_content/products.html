@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% extends 'site_content/base-new.html' %}
+{% extends 'site_content/base.html' %}
 <!--    <title>category.title_category</title>-->
 {% block content %}
 
@@ -12,6 +12,7 @@
             <img class="product-image" src="{% if product.image_product %}{{ product.image_product.url }}{% else %}/static/image/Art-Shop-logo.png{% endif %}" width="150px" height="130px">
             <p>{{ product.price_product }}</p>
             <p>{{ product.brand_product }}</p>
+            <input type="submit" value="Купить">
         </a>
     </div>
     {% endfor %}
