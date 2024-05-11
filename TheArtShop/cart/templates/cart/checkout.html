@@ -1,0 +1,79 @@
+{% extends "site_content/base.html" %}
+
+{% block content %}
+  <h2>Заказ</h2>
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <!-- Остальной код шаблона... -->
+
+  <form method="post">
+    {% csrf_token %}
+   {% for order_item in order_items %}
+     {{ order_item.product.title_product }}
+      <button type="button" class="quantity-control" data-action="decrement" data-target="{{ order_item.quantity }}">-</button>
+      {{ order_item.quantity }}
+      <button type="button" class="quantity-control" data-action="increment" data-target="{{ order_item.quantity }}">+</button>
+      <button type="reset">Удалить</button>
+      <br>
+    {% endfor %}
+    <button type="submit">Обновить количество</button>
+  </form>
+
+  <ul>
+    {% for order_item in order_items %}
+      <li>
+        Товар: {{ order_item.product.name }}
+        Количество: {{ order_item.quantity }}
+        Цена: {{ order_item.product.price }}
+      </li>
+    {% endfor %}
+  </ul>
+
+  Общая стоимость заказа: {{ total_order_price }}
+
+  <!-- Остальной код шаблона... -->
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.quantity-control').click(function() {
+      var action = $(this).data('action');
+      var target = $(this).data('target');
+      var quantityElement = $(this).siblings('.quantity');
+      var quantity = parseInt(quantityElement.text());
+
+      if (action === 'decrement' && quantity > 1) {
+        quantity -= 1;
+      } else if (action === 'increment') {
+        quantity += 1;
+      }
+
+      // Обновляем количество на странице
+      quantityElement.text(quantity);
+
+      // Отправляем данные на сервер для обновления количества
+      $.ajax({
+        url: '/update_cart_quantity/',
+        method: 'POST',
+        data: {
+          order_item_id: target,
+          quantity: quantity
+        },
+        success: function(data) {
+          // Обработка успешного обновления
+        },
+        error: function(xhr, status, error) {
+          // Обработка ошибок
+        }
+      });
+    });
+  });
+</script>
