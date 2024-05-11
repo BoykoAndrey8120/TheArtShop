@@ -1,42 +1,46 @@
 {% extends "site_content/base.html" %}
 
 {% block content %}
-  <h2>Оформление заказа</h2>
-  {% if cart_items %}
-    <table>
-      <thead>
-        <tr>
-          <th>Товар</th>
-          <th>Количество</th>
-          <th>Цена за единицу</th>
-          <th>Общая стоимость</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in cart_items %}
-          <tr>
-            <td>{{ item.order.title_product }}</td>
-            <td>{{ item.order.quantity }}</td>
-            <td>{{ item.order.price_product }}</td>
-<!--            <td>${{ item.total_price }}</td>-->
-          </tr>
         {% endfor %}
-      </tbody>
-    </table>
 
-    <p>Общая стоимость заказа: ${{ total_order_price }}</p>
 
-    <!-- Форма для ввода данных доставки и подтверждения заказа -->
-    <form method="post" action="{% url 'confirm_order' %}">
       {% csrf_token %}
-      <!-- Вставьте поля формы для имени, адреса, контактной информации и т. д. -->
-      <input type="submit" value="Подтвердить заказ">
     </form>
-  {% else %}
-    <p>Ваша корзина пуста.</p>
-  {% endif %}
 {% endblock %}
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.quantity-control').click(function() {
+      var action = $(this).data('action');
+      var target = $(this).data('target');
+      var quantityElement = $(this).siblings('.quantity');
+      var quantity = parseInt(quantityElement.text());
 
+      if (action === 'decrement' && quantity > 1) {
+        quantity -= 1;
+      } else if (action === 'increment') {
+        quantity += 1;
+      }
 
+      // Обновляем количество на странице
+      quantityElement.text(quantity);
 
+      // Отправляем данные на сервер для обновления количества
+      $.ajax({
+        url: '/update_cart_quantity/',
+        method: 'POST',
+        data: {
+          order_item_id: target,
+          quantity: quantity
+        },
+        success: function(data) {
+          // Обработка успешного обновления
+        },
+        error: function(xhr, status, error) {
+          // Обработка ошибок
+        }
+      });
+    });
+  });
+</script>

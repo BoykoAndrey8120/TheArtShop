@@ -2,6 +2,7 @@ from .models import Category, Product, Brand
 import random
 from slugify import slugify
 
+
 def generate_products(num_products=1000):
     categories = Category.objects.all()
     brands = Brand.objects.all()
@@ -14,7 +15,6 @@ def generate_products(num_products=1000):
         category = random.choice(categories)
         brand = random.choice(brands)
 
-        # Генерируем слаг для товара на основе названия
         slug = slugify(title)
 
         Product.objects.create(
@@ -25,8 +25,9 @@ def generate_products(num_products=1000):
             category_product=category,
             brand_product=brand,
             slug_product=slug  # Устанавливаем генерированный слаг
-    
         )
+
+
 def create_unique_slug(instance, new_slug=None):
     slug = new_slug or slugify(instance.title_product)
     qs = Product.objects.filter(slug_product=slug).exclude(id=instance.id)
@@ -35,7 +36,7 @@ def create_unique_slug(instance, new_slug=None):
         return create_unique_slug(instance, new_slug=new_slug)
     return slug
 
-# В методе save() вашей модели Product вызывайте create_unique_slug перед сохранением:
+
 def save(self, *args, **kwargs):
     if not self.slug_product:
         self.slug_product = create_unique_slug(self)

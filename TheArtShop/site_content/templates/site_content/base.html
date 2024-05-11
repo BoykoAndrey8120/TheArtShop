@@ -41,8 +41,8 @@
                 {% endif %}
                 <li class="menu-item">
                    {% if user.is_authenticated %}
-                <a href="{% url 'cart:cart' %}" class="menu-link"><img src="{% static 'image/free-icon-shop-cart-5821012.png' %}" alt="Корзина" class="bag-image", width="30px", height="30px"> Корзина</a>
-                    {% else %}
+                <a href="{% url 'cart:cart_add' product_id=product.id|default:1 %}" class="menu-link"><img src="{% static 'image/free-icon-shop-cart-5821012.png' %}" alt="Корзина" class="bag-image" width="30px" height="30px"> Корзина</a>
+{% else %}
                 <a href="{% url 'login' %}" class="menu-link"><img src="{% static 'image/free-icon-shop-cart-5821012.png' %}" alt="Корзина" class="bag-image", width="30px", height="30px"> Корзина</a>
                     {% endif %}
                 </li>
