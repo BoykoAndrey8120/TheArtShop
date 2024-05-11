@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView
 from .models import Product, Category
-from cart.forms import CartAddProductForm
+# from cart.forms import CartAddProductForm
 
 
 class Home(ListView):

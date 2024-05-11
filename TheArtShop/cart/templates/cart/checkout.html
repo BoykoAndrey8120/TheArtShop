@@ -35,10 +35,15 @@
     {% endfor %}
   </ul>
 
-  Общая стоимость заказа: {{ total_order_price }}
+  Общая стоимость заказа: {{ cart.get_total_price }}
 
   <!-- Остальной код шаблона... -->
 
+
+{% for item in cart %}
+<p>{{ item.id }}</p>
+{% endfor %}
+<p>куплено</p>
 {% endblock %}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
