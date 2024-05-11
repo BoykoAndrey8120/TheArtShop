@@ -30,3 +30,9 @@ def cart_detail(request):
     cart = Cart(request)
     print(cart)
     return render(request, 'cart/detail.html', {'cart': cart})
+
+
+def checkout(request):
+    cart = Cart(request)
+
+    return render(request, 'cart/checkout.html', {'cart': cart,})

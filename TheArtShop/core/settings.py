@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'import_export',
     'site_content',
     'users',
     'cart',
@@ -91,7 +92,6 @@ DATABASES = {
 }
 
 CART_SESSION_ID = 'cart'
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

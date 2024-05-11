@@ -1,11 +1,49 @@
 {% extends "site_content/base.html" %}
 
 {% block content %}
-        {% endfor %}
+  <h2>Заказ</h2>
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <!-- Остальной код шаблона... -->
+
+  <form method="post">
+    {% csrf_token %}
+   {% for order_item in order_items %}
+     {{ order_item.product.title_product }}
+      <button type="button" class="quantity-control" data-action="decrement" data-target="{{ order_item.quantity }}">-</button>
+      {{ order_item.quantity }}
+      <button type="button" class="quantity-control" data-action="increment" data-target="{{ order_item.quantity }}">+</button>
+      <button type="reset">Удалить</button>
+      <br>
+    {% endfor %}
+    <button type="submit">Обновить количество</button>
+  </form>
+
+  <ul>
+    {% for order_item in order_items %}
+      <li>
+        Товар: {{ order_item.product.name }}
+        Количество: {{ order_item.quantity }}
+        Цена: {{ order_item.product.price }}
+      </li>
+    {% endfor %}
+  </ul>
+
+  Общая стоимость заказа: {{ cart.get_total_price }}
+
+  <!-- Остальной код шаблона... -->
 
 
-      {% csrf_token %}
-    </form>
+{% for item in cart %}
+<p>{{ item.id }}</p>
+{% endfor %}
+<p>куплено</p>
 {% endblock %}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
