@@ -4,27 +4,21 @@
     <h4>{{ product.title_product }}</h4>
     <img class="product-image" src="{% if product.image_product %}{{ product.image_product.url }}{% else %}/static/image/Art-Shop-logo.png{% endif %}" width="150px" height="130px">
     <p>{{ product.price_product }}</p>
+    <p class="price">${{ product.price_product }}</p>
+<form action="{% url 'cart:cart_add' product_id=product.id %}" method="post">
+    {% csrf_token %}
+    <!-- Добавьте скрытое поле с csrf токеном -->
+    <input type="hidden" name="product_id" value="{{ product.id }}">
+    <!-- Добавьте поле с количеством товара, которое вы хотите добавить в корзину -->
+    <input type="number" name="quantity" value="1" min="1">
+    <!-- Кнопка для отправки формы -->
+    <input type="submit" value="Add to cart">
+</form>
+
     <p>Бренд: {{ product.brand_product }}</p>
     <p>{{ product.description_product }}</p>
-
+<form action="{% url 'cart:cart_add' product_id=product.id %}" methods="post">
     <button id="buyButton">Купить</button>
-
-<script>
-    document.getElementById('buyButton').addEventListener('click', function() {
-        // Отправляем AJAX-запрос на сервер для создания заказа
-        var xhr = new XMLHttpRequest();
-        var product_id = {{ product.id }};
-        var url = '{% url "cart:add_to_cart" product_id=1 %}';
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhr.onload = function() {
-            // После успешного ответа сервера, переходим в корзину
-            if (xhr.status >= 200 && xhr.status < 300) {
-                window.location.href = '{% url "cart:cart" %}';
-            }
-        };
-        xhr.send(JSON.stringify({ product_id: product_id }));
-    });
-</script>
-
+</form>
+<a href="{% url 'cart:cart_add' product_id=product.id %}"> просто карзина</a>
 {% endblock %}

@@ -10,6 +10,8 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView
 from .models import Product, Category
+from cart.forms import CartAddProductForm
+
 
 
 class Home(ListView):
@@ -44,6 +46,17 @@ class ProductsViews(ListView):
         category = Category.objects.get(slug_category=category_slug)
         return Product.objects.filter(category_product=category, available=True)
 
+
+
+# def product_detail(request, id, slug):
+#     product = get_object_or_404(Product,
+#                                 id=id,
+#                                 slug=slug,
+#                                 available=True)
+#     cart_product_form = CartAddProductForm()
+#     return render(request, 'shop/product/detail.html', {'product': product,
+#                                                         'cart_product_form': cart_product_form})
+
 # class CustomLoginView(LoginView):
 #     template_name = 'site_content/login.html'
 #     success_url = 'home'
@@ -64,6 +77,7 @@ class ProductView(DetailView):
     template_name = 'site_content/product.html'
     model = Product
     context_object_name = 'product'
+
 
 
 # def register(request):
